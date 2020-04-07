@@ -59,7 +59,7 @@ BBDD de jugadores
 BBDD Torneos
     -Id
     -Nombre Torneo
-    -Jugadores(Tabla con Id de Jugadores, facción, PuntacionTorneo(Suma ValoresPuntacionRonda filtrando por IdJugador), drop, firstbye)
+    -Jugadores(Tabla con Id de Jugadores, facción, PuntacionTorneo(Suma ValoresPuntacionRonda filtrando por IdJugador e IdTorneo), drop, firstbye)
     -IDRondaActual
     -IdJuego
     -Suizo o Liga (bool)
@@ -79,7 +79,7 @@ BBDD DesempateTorneo
     -IdTorneo
     -IdJugador
     -IdDesempate
-    -Valor (Suma desempate por tpo)
+    -Valor (Suma desempate por tpo filtrando por torneo y jugador)
 
 BBDD Ronda (imprimir lista enfrentamientos con la mesa con todos los jugadores en orden alfabetico (se repetiran los enfrentamientos 2 veces) && imprimir rellenables del resultado de cada mesa que dependeran del juego el formato)
     -Id
@@ -96,14 +96,12 @@ BBDD Enfrentamiento ronda
 BBDD PuntaciónRonda
     -IdRonda
     -IdJugador
-    -IdPuntuacion
-    -Valor
+    -Valor (Suma todos los criterios de puntación del juego dependendo del resultado)
 
 BBDD DesempateRonda
     -IdRonda
     -IdJugador
-    -IdDesempate
-    -Orden (ASC o DESC) =>(Sirve para indicar si el nuemro de desempate debe ordenarse de manera ascendente o descente, por ejemplo los goles en contra seria favorable para que el que tiene menos)
+    -IdCriterioDesempate
     -Valor
 
 BBDD Juegos
@@ -115,36 +113,35 @@ BBDD Juegos
     -CalculoDesenpate(BBDD Desenpate)
 
 
-************************************************************************
-*******REPENSAR ESTO QUIZA CAMBIANDO EL MODO DE PUNTUAR CON AOS*********
-************************************************************************
-BBDD Puntación (Ej. Tipo Victoria, Plan Oculto)
+
+BBDD TipoPuntación
+    -Id
+    -Tipo (Check, Numerica)
+
+BBDD CriterioPuntación
     -Id
     -IdJuego
+    -IdTipoPuntación
     -Nombre
+    -Empate (Indica si esta puntación permite empate, en las de tipo numerica por defecto si)
+    -Excluyente (Indica si esta puntación elimina el resto)
+    -Bonifcador (Indica si esta puntuación se ve afectada por el excluyente)
+    -Puntos Victoria
+    -Puntos Derrota
+    -Puntos Empate (si lo permite)
 
-BBDD AgrupacionPuntación (Ejemplos => Victoria Total, Victorio Parcial, Empate, Derrota Total, Derrota Parcial)
-    -Id
-    -Nombre 
-    -IdPuntación (Si la Idpuntación se repite entonces es conjunto)
-    -IdTipoPuntuacion 
-    -Valor (Solo en tipo de ConjuntoExcluyente)
-
-BBDD TipoPuntuacion (Esta BBDD no podra ser modificada por el usuario)
-    -Id
-    -Tipo Puntacion (ConjuntoExcluyente, Entero, Booleano) => (Si es entero se muestra con un cuadro de texto y si es booleano con un checkbox, si es un conjunto serán radiobutton)
-    -Nombre
-
-BBDD Desempate 
+BBDD CriterioDesempate
     -Id
     -IdJuego
+    -IdPuntación
+    -Num. Criterio (Posición del criterio de desempate)
     -Nombre
-    -IdTipoPuntacion(BBDD TipoPuntación)  => No puedo haber conjuntos
-    -Num. Criterio (Posicion para el criterio de desempate)
+    -IdCriterioDesempate
 
-************************************************************************
-*******REPENSAR ESTO QUIZA CAMBIANDO EL MODO DE PUNTUAR CON AOS*********
-************************************************************************
+BBDD CriterioDesempate
+    -Id
+    -Tipo Criterio (Mayor, Menor, sof(x-Wing))
+
 
 BBDD Facciones
     -Id
@@ -153,5 +150,3 @@ BBDD Facciones
 
 
 
-
-*****MIRAR SI SE PUEDO MODULAR PARA CREAR JUEGOS NUEVOS*******
