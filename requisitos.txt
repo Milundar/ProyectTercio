@@ -59,7 +59,6 @@ BBDD de jugadores
 BBDD Torneos
     -Id
     -Nombre Torneo
-    -Jugadores(Tabla con Id de Jugadores, facción, PuntacionTorneo(Suma ValoresPuntacionRonda filtrando por IdJugador e IdTorneo), drop, firstbye)
     -IDRondaActual
     -IdJuego
     -Suizo o Liga (bool)
@@ -74,6 +73,15 @@ BBDD Torneos
     -Mesas(Jugadores/2)
     -Terminado (bool)
     -Premios por Sorteo (integer)
+
+BBDD PuntacionTorneo
+    -Id
+    -IdTorneo
+    -IdJugador
+    -IdFaccion
+    -PuntuaciónTorneo(Suma ValoresPuntacionRonda filtrando por IdJugador e IdTorneo)
+    -drop
+    -Firstbye
 
 BBDD DesempateTorneo
     -IdTorneo
