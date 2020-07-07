@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/Milundar/ProyectTercio#readme",
   "devDependencies": {
-    "electron": "^8.2.0"
+    "electron": "^8.2.4"
   }
 }
